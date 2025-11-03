@@ -11,6 +11,11 @@ public class Ropa extends Producto{
         this.material = material;
     }
 
+    public Ropa(String nombre, double precio, int cantidad, String talla, String material) {
+        super(nombre, precio, cantidad);
+        this.talla = talla;
+        this.material = material;
+    }
 
     public String getTalla() {
         return talla;

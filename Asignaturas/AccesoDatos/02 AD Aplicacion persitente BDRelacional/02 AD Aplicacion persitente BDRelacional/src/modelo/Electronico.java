@@ -13,6 +13,12 @@ public class Electronico extends Producto {
         this.garantia = garantia;
     }
 
+    public Electronico(String nombre, double precio, int cantidad, String marca, int garantia) {
+        super(nombre, precio, cantidad);
+        this.marca = marca;
+        this.garantia = garantia;
+    }
+
     public String getMarca() {
         return marca;
     }

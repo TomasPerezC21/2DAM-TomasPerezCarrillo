@@ -34,7 +34,7 @@ public class Inventario {
      * @param producto
      * @return true si el inserta el producto en el invenario si el producto pasado cómo parametro el id no está en el inventario
      */
-    public boolean insertarProducto(Producto producto){
+    public boolean insertarProducto(Producto producto) throws SQLException {
 
         if (producto instanceof Ropa){
             Ropa ropa = (Ropa)producto;
@@ -45,9 +45,45 @@ public class Inventario {
 
         }
         else{
+            Electronico electronido = (Electronico)producto;
+            String sentenciaSQL = "INSERT INTO productos\n" +
+            " (tipo, nombre, precio, stock)\n " +
+                    "VALUES (?,?,?,?)";
+
+            PreparedStatement pst = conexion.prepareStatement(sentenciaSQL);
+            pst.setString(1, "Electronico");
+            pst.setString(2, electronido.getNombre());
+            pst.setDouble(3, electronido.getPrecio());
+            pst.setInt(4, electronido.getStock());
+            pst.execute();
+            int filas = pst.executeUpdate();
+            if (filas > 0) {
+                ResultSet rs = pst.getGeneratedKeys();
+                if (rs.next()) {
+                    int idProducto = rs.getInt(1);
+                    String sql1 = "INSERT INTO tienda_online.electronicos\n" +
+                            "(id, marca, garantia)\n" +
+                            "VALUES (?,?,?)";
+                    PreparedStatement pst1 = conexion.prepareStatement(sql1);
+                    pst1.setInt(1, idProducto);
+                    pst1.setString(2, electronido.getMarca());
+                    pst1.setDouble(3, electronido.getGarantia());
+                    int filas1 = pst1.executeUpdate();
+                    if (filas1 > 0) {
+                        rs.close();
+                        pst1.close();
+                        pst.close();
+                        return true;
+                    }
+
+                }
+
+
+
+            }
 
         }
-        return true;
+        return false;
     }
 
 

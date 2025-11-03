@@ -102,7 +102,7 @@ public class AppTiendaGrafica extends Application {
         TextField campoExtra2 = new TextField(); // garantía / material
 
         Label l0 = new Label("Tipo:");
-        Label l1=new Label("Id");
+//        Label l1=new Label("Id");
         Label l2 = new Label("Nombre:");
         Label l3 = new Label("Precio:");
         Label l4 = new Label("Stock:");
@@ -112,39 +112,47 @@ public class AppTiendaGrafica extends Application {
         Button btn = new Button("Guardar");
         btn.setOnAction(e -> {
             String tipo = tipoBox.getValue();
-            int idProducto=Integer.parseInt(id.getText());
+//            int idProducto=Integer.parseInt(id.getText());
             String nom = nombre.getText();
             double pre = Double.parseDouble(precio.getText());
             int sto = Integer.parseInt(stock.getText());
             String ex1 = campoExtra1.getText();
             String ex2 = campoExtra2.getText();
             if (tipo.equals("Electronico")){
-                Electronico productoElectronico=new Electronico(idProducto,nom, pre,sto,ex1,Integer.parseInt(ex2));
-                if (inventario.insertarProducto(productoElectronico)){
-                    showInfo("Producto insertado correctamente");
-                }
-                else{
-                    showInfo("El producto con ese id ya está en el inventario");
+                Electronico productoElectronico=new Electronico(nom, pre,sto,ex1,Integer.parseInt(ex2));
+                try {
+                    if (inventario.insertarProducto(productoElectronico)){
+                        showInfo("Producto insertado correctamente");
+                    }
+                    else{
+                        showInfo("El producto con ese id ya está en el inventario");
+                    }
+                } catch (SQLException ex) {
+                    showError(ex.getMessage());
                 }
             }
             else{
-                Ropa productoRopa=new Ropa(idProducto,nom, pre,sto,ex1,ex2);
-                if (inventario.insertarProducto(productoRopa)){
-                    showInfo("Producto insertado correctamente");
-                }
-                else{
-                    showInfo("El producto con ese id ya está en el inventario");
+                Ropa productoRopa=new Ropa(nom, pre,sto,ex1,ex2);
+                try {
+                    if (inventario.insertarProducto(productoRopa)){
+                        showInfo("Producto insertado correctamente");
+                    }
+                    else{
+                        showInfo("El producto con ese id ya está en el inventario");
+                    }
+                } catch (SQLException ex) {
+                    showError(ex.getMessage());
                 }
             }
         });
 
         grid.addRow(0, l0, tipoBox);
-        grid.addRow(1, l1, id);
-        grid.addRow(2, l2, nombre);
-        grid.addRow(3, l3, precio);
-        grid.addRow(4, l4, stock);
-        grid.addRow(5, l5, campoExtra1);
-        grid.addRow(6, l6, campoExtra2);
+        //grid.addRow(1, l1, id);
+        grid.addRow(1, l2, nombre);
+        grid.addRow(2, l3, precio);
+        grid.addRow(3, l4, stock);
+        grid.addRow(4, l5, campoExtra1);
+        grid.addRow(5, l6, campoExtra2);
         grid.add(btn, 1, 7);
 
         return grid;

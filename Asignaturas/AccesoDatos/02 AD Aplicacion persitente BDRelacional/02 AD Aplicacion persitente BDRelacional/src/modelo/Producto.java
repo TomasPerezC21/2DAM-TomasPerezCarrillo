@@ -16,6 +16,12 @@ public abstract class  Producto implements Vendible, Serializable {
         this.stock = cantidad;
     }
 
+    public Producto(String nombre, double precio, int cantidad) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = cantidad;
+    }
+
     public int getId() {
         return id;
     }

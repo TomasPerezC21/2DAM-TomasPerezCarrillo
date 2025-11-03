@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -30,7 +28,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tomasperezpractica2.practica2tomasperez.MainLayoutsController" >
    <top>
       <HBox spacing="10.0" style="-fx-background-color: #336699;">
          <children>
@@ -168,16 +166,6 @@
                  </font>
              </Label>
 
-             <!-- Aquí agregamos el ChoiceBox en la misma fila (6) y columna (1) -->
-             <ChoiceBox fx:id="choiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                 <items>
-                     <FXCollections fx:factory="observableArrayList">
-                         <String fx:value="Option 1" />
-                         <String fx:value="Option 2" />
-                         <String fx:value="Option 3" />
-                     </FXCollections>
-                 </items>
-             </ChoiceBox>
             <PasswordField text="123456789" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField promptText="(Name and surname)" GridPane.columnIndex="1" />
             <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -196,8 +184,8 @@
                   <Insets left="180.0" />
                </GridPane.margin>
             </CheckBox>
-            <ListView prefHeight="22.0" prefWidth="271.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ListView fx:id="qualificationsLV" prefHeight="22.0" prefWidth="271.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ChoiceBox id="locationCB" fx:id="locationCB" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </center>
