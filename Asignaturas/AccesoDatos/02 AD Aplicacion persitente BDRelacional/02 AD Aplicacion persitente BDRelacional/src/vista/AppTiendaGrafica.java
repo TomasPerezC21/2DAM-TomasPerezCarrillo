@@ -209,11 +209,15 @@ public class AppTiendaGrafica extends Application {
             Producto p = combo.getValue();
             int cantidad = Integer.parseInt(cantidadField.getText());
             if (esVenta){
-                if (inventario.venderProducto(p.getId(),cantidad)){
-                    showInfo("Venta realizada correctamente");
-                }
-                else{
-                    showInfo("Venta no realizada. No hay stock suficiente");
+                try {
+                    if (inventario.venderProducto(p.getId(),cantidad)){
+                        showInfo("Venta realizada correctamente");
+                    }
+                    else{
+                        showInfo("Venta no realizada. No hay stock suficiente");
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
             else{

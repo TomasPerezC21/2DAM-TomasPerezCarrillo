@@ -34,57 +34,106 @@ public class Inventario {
      * @param producto
      * @return true si el inserta el producto en el invenario si el producto pasado cómo parametro el id no está en el inventario
      */
+
+//    public boolean insertarProducto(Producto producto) throws SQLException {
+//
+//        if (producto instanceof Ropa){
+//            insertarRopa(producto);
+//        }else{
+//            insertarElectronico(producto);
+//        }
+//
+//        return false;
+//    }
+
     public boolean insertarProducto(Producto producto) throws SQLException {
 
         if (producto instanceof Ropa){
-            Ropa ropa = (Ropa)producto;
-            String sql = "INSERT INTO productos\n" +
-                    " (id, nombre, precio, stock, talla, material)\n " +
-                    "VALUES (?,?,?,?,?,?)";
-
-
+            return insertarRopa(producto);
+        }else{
+            return insertarElectronico(producto);
         }
-        else{
-            Electronico electronido = (Electronico)producto;
-            String sentenciaSQL = "INSERT INTO productos\n" +
-            " (tipo, nombre, precio, stock)\n " +
-                    "VALUES (?,?,?,?)";
 
-            PreparedStatement pst = conexion.prepareStatement(sentenciaSQL);
-            pst.setString(1, "Electronico");
-            pst.setString(2, electronido.getNombre());
-            pst.setDouble(3, electronido.getPrecio());
-            pst.setInt(4, electronido.getStock());
-            pst.execute();
-            int filas = pst.executeUpdate();
-            if (filas > 0) {
-                ResultSet rs = pst.getGeneratedKeys();
-                if (rs.next()) {
-                    int idProducto = rs.getInt(1);
-                    String sql1 = "INSERT INTO tienda_online.electronicos\n" +
-                            "(id, marca, garantia)\n" +
-                            "VALUES (?,?,?)";
-                    PreparedStatement pst1 = conexion.prepareStatement(sql1);
-                    pst1.setInt(1, idProducto);
-                    pst1.setString(2, electronido.getMarca());
-                    pst1.setDouble(3, electronido.getGarantia());
-                    int filas1 = pst1.executeUpdate();
-                    if (filas1 > 0) {
-                        rs.close();
-                        pst1.close();
-                        pst.close();
-                        return true;
-                    }
+    }
 
+    public boolean insertarElectronico(Producto producto) throws SQLException {
+
+        conexion.setAutoCommit(false);
+        Electronico electronido = (Electronico)producto;
+        String sentenciaSQL = "INSERT INTO productos\n" +
+                " (tipo, nombre, precio, stock)\n " +
+                "VALUES (?,?,?,?)";
+
+        PreparedStatement pst = conexion.prepareStatement(sentenciaSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+        pst.setString(1, "Electronico");
+        pst.setString(2, electronido.getNombre());
+        pst.setDouble(3, electronido.getPrecio());
+        pst.setInt(4, electronido.getStock());
+        int filas = pst.executeUpdate();
+        if (filas > 0) {
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+                int idProducto = rs.getInt(1);
+                String sql1 = "INSERT INTO tienda_online.electronicos\n" +
+                        "(id, marca, garantia)\n" +
+                        "VALUES (?,?,?)";
+                PreparedStatement pst1 = conexion.prepareStatement(sql1);
+                pst1.setInt(1, idProducto);
+                pst1.setString(2, electronido.getMarca());
+                pst1.setDouble(3, electronido.getGarantia());
+                int filas1 = pst1.executeUpdate();
+                if (filas1 > 0) {
+                    rs.close();
+                    pst1.close();
+                    pst.close();
+                    conexion.setAutoCommit(true);
+                    return true;
                 }
-
-
-
             }
-
         }
+        conexion.rollback();
         return false;
     }
+
+    public boolean insertarRopa(Producto producto) throws SQLException {
+        conexion.setAutoCommit(false);
+        Ropa ropa = (Ropa)producto;
+        String sql = "INSERT INTO productos\n" +
+                    " (tipo, nombre, precio, stock)\n " +
+                    "VALUES (?,?,?,?)";
+
+        PreparedStatement pst = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        pst.setString(1, "Ropa");
+        pst.setString(2, ropa.getNombre());
+        pst.setDouble(3, ropa.getPrecio());
+        pst.setInt(4, ropa.getStock());
+        int filas = pst.executeUpdate();
+        if (filas > 0) {
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+                int idProducto = rs.getInt(1);
+                String sql1 = "INSERT INTO tienda_online.ropa\n" +
+                        "(id, talla, material)\n" +
+                        "VALUES (?,?,?)";
+                PreparedStatement pst1 = conexion.prepareStatement(sql1);
+                pst1.setInt(1, idProducto);
+                pst1.setString(2, ropa.getTalla());
+                pst1.setString(3, ropa.getMaterial());
+                int filas1 = pst1.executeUpdate();
+                if (filas1 > 0) {
+                    rs.close();
+                    pst1.close();
+                    pst.close();
+                    conexion.setAutoCommit(true);
+                    return true;
+                }
+            }
+        }
+        conexion.rollback();
+        return false;
+    }
+
+
 
 
     //obtener arrayList de productos Electronicos y Ropa
@@ -130,8 +179,11 @@ public class Inventario {
      * @return true si realiza la venta porque hay suficente stock, devuelve false si no hay suficiente stock
      * @throws ProductoNoInventarioException si el producto a vender no está en el inventario
      */
-    public boolean venderProducto(int idProducto, int cantidad) throws ProductoNoInventarioException{
-     return true;
+    public boolean venderProducto(int idProducto, int cantidad) throws ProductoNoInventarioException, SQLException {
+        conexion.setAutoCommit(false);
+
+
+        return false;
     }
 
     /**
