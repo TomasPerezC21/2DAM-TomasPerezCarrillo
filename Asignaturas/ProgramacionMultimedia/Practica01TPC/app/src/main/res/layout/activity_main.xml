@@ -58,7 +58,12 @@
             android:text="DIV"
             android:layout_marginRight="5dp"/>
 
+
+
     </LinearLayout>
+
+
+
 
     <TextView
         android:id="@+id/resultado"
@@ -67,4 +72,20 @@
         android:text="Resultado"
         android:gravity="center_horizontal">
     </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/botonSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="120dp"
+            android:text="Cambiar a Spinner" />
+
+    </LinearLayout>
+
 </LinearLayout>

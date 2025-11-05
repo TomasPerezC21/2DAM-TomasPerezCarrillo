@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ContenedorInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/Texto1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="number"
+        android:text="Introduce un número: " />
+
+    <EditText
+        android:id="@+id/Texto2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="number"
+        android:text="Introduce otro número" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/botonSuma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SUM"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+        <Button
+            android:id="@+id/botonResta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RES"
+            android:layout_marginRight="5dp"/>
+        <Button
+            android:id="@+id/botonMulti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MULTI"
+            android:layout_marginRight="5dp"/>
+        <Button
+            android:id="@+id/botonDiv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DIV"
+            android:layout_marginRight="5dp"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:id="@+id/resultado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:gravity="center_horizontal">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/botonSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="120dp"
+            android:text="Cambiar a Spinner" />
+
+    </LinearLayout>
+
+</LinearLayout>

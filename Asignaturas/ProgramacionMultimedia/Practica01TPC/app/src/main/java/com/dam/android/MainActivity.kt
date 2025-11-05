@@ -1,9 +1,11 @@
 package com.dam.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,7 +20,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var et2: EditText
 
     private lateinit var result: TextView
+    private lateinit var botonSuma: Button
 
+    private lateinit var botonResta: Button
+    private lateinit var botonMulti: Button
+    private lateinit var botonDiv: Button
+
+    private lateinit var botonSpinner: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         result = findViewById(R.id.resultado)
 
+
+
+
         //Asignación a cada botón
         findViewById<Button>(R.id.botonSuma).setOnClickListener { operar("suma") }
+
         findViewById<Button>(R.id.botonResta).setOnClickListener { operar("resta") }
         findViewById<Button>(R.id.botonMulti).setOnClickListener { operar("multi") }
         findViewById<Button>(R.id.botonDiv).setOnClickListener { operar("div") }
@@ -41,6 +53,19 @@ class MainActivity : AppCompatActivity() {
         //Para quitar el texto al hacer clic
         et1.setOnClickListener { et1.text.clear() }
         et2.setOnClickListener { et2.text.clear() }
+
+
+        botonSuma = findViewById(R.id.botonSuma)
+
+
+        botonSpinner = findViewById(R.id.botonSpinner)
+
+        botonSpinner.setOnClickListener {
+
+            val intent = Intent(this, SpinnerPrueba::class.java)
+            startActivity(intent)
+        }
+
 
     }
     //metodo que realiza las operaciones en base a la variable que envía cada botón
@@ -64,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         if  (operacion == "suma"){
             resultado = num1 + num2
             result.text = resultado.toString()
+            Toast.makeText(this, "hola mundo", Toast.LENGTH_SHORT).show()
         }
 
         if (operacion == "resta"){

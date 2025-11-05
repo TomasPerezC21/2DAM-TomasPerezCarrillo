@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Practica01TPC">
         <activity
+            android:name=".SpinnerPrueba"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
