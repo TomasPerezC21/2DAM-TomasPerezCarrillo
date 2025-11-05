@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AppTodo</string>
+    <string name="ingresa_primer_numero">Ingresa primer numero:</string>
+    <string name="ingresa_segundo_numero">Ingresa segundo numero</string>
+    <string name="suma">Suma</string>
+    <string name="resta">Resta</string>
+    <string name="multiplicaci_n">Multiplicacion</string>
+    <string name="divisi_n">División</string>
+    <string name="resultado">Resultado:</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="textview">TextView</string>
+    <string name="switch1">Switch Prueba</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
