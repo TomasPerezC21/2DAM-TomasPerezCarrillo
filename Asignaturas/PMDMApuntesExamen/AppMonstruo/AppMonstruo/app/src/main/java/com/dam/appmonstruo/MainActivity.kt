@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         click = findViewById(R.id.click)
         switch = findViewById(R.id.switch1)
         textoSwitch = findViewById(R.id.textoSwich)
+
         //bindeo de solo una linea
         var botonActividad2: Button = findViewById(R.id.actividad2)
 
@@ -81,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Pantalla de inicio "
-
 
 
 
