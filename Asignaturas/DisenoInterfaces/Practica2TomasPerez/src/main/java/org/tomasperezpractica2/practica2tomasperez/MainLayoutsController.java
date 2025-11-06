@@ -3,11 +3,17 @@ package org.tomasperezpractica2.practica2tomasperez;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainLayoutsController {
     @FXML
@@ -23,6 +29,8 @@ public class MainLayoutsController {
     @FXML
     private ComboBox<String> languageCB;
 
+    @FXML
+    private TreeView dataTree = new TreeView();
 
     @FXML
     protected void initialize() {
@@ -50,6 +58,29 @@ public class MainLayoutsController {
         languageCB.setValue("Select a language...");
         languageCB.getItems().addAll("Spanish", "English", "Russian", "German");
 
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream("src/main/resources/org/tomasperezpractica2/practica2tomasperez/images/fichero.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ImageView folderIV = new ImageView(new Image(fis));
+        folderIV.setPreserveRatio(true);
+        folderIV.setFitHeight(20);
+
+        TreeItem<String> rootItem =  new TreeItem<String>("Inbox", folderIV);
+        rootItem.setExpanded(true);
+
+        List<String> treeListItems = new ArrayList<String>(Arrays.asList("Sales", "Marketing", "Distribution", "Cost"));
+
+
+        for(String item : treeListItems) {
+            TreeItem<String> treeItem = new TreeItem<String>(item);
+            rootItem.getChildren().add(treeItem);
+        }
+
+        dataTree.setRoot(rootItem);
 
     }
 }
