@@ -6,7 +6,7 @@ def calculadora(numero1, numero2, operador):
         print(numero1 - numero2)
     elif operador == "*":
         print(numero1 * numero2)
-    elif operador == "/"
+    elif operador == "/":
         if numero2 !=0:
             print(numero1 / numero2)
         else:
