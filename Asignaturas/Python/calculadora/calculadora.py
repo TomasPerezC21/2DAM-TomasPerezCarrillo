@@ -7,7 +7,7 @@ def calculadora(numero1, numero2, operador):
     elif operador == "*":
         print(numero1 * numero2)
     elif operador == "/":
-        if numero2 != 0:
+        if numero2 != 
             print(numero1 / numero2)
         else:
             print("Error: No se puede dividir por cero.")
