@@ -12,7 +12,6 @@ nombre_usuario = input("Pon tu nombre: ")
 mes = int(input("Introduce el número del mes en el que naciste: "))
 
 
-
 meses = {
     1: "Enero",
     2: "Febrero",
