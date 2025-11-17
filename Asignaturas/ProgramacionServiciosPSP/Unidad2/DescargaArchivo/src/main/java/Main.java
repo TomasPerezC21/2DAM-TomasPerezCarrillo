@@ -9,16 +9,12 @@ public class Main {
 
         //Metodo con la interfaz
 
-        for (int i = 0; i < 3 ; i++){
             Thread thread1 = new Thread(archivo1);
             thread1.start();
-        }
 
-
-        for (int i = 0; i < 2 ; i++){
             Thread thread2 = new Thread(archivo2);
             thread2.start();
-        }
+
 
         Thread thread3 = new Thread(archivo3);
         thread3.start();
