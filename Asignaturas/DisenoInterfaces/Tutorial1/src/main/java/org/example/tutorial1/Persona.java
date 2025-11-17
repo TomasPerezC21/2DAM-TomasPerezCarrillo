@@ -1,70 +1,111 @@
 package org.example.tutorial1;
 
+import javafx.beans.property.*;
+
 import java.time.LocalDate;
 
 public class Persona {
 
-    private String nombre;
-    private String apellido;
-    private String calle;
-    private String ciudad;
-    private int codigoPostal;
-    private LocalDate fechaNacimiento;
+    private final StringProperty firstName;
+    private final StringProperty lastName;
+    private final StringProperty street;
+    private final IntegerProperty postalCode;
+    private final StringProperty city;
+    private final ObjectProperty<LocalDate> birthday;
 
-    public Persona(String nombre, int codigoPostal, String ciudad, String apellido, String calle, LocalDate fechaNacimiento) {
-        this.nombre = nombre;
-        this.codigoPostal = codigoPostal;
-        this.ciudad = ciudad;
-        this.apellido = apellido;
-        this.calle = calle;
-        this.fechaNacimiento = fechaNacimiento;
+    /**
+     * Default constructor.
+     */
+    public Persona() {
+        this(null, null);
     }
 
-    public String getNombre() {
-        return nombre;
+    /**
+     * Constructor with some initial data.
+     *
+     * @param firstName
+     * @param lastName
+     */
+    public Persona(String firstName, String lastName) {
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+
+        // Some initial dummy data, just for convenient testing.
+        this.street = new SimpleStringProperty("some street");
+        this.postalCode = new SimpleIntegerProperty(1234);
+        this.city = new SimpleStringProperty("some city");
+        this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getFirstName() {
+        return firstName.get();
     }
 
-    public String getApellido() {
-        return apellido;
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public StringProperty firstNameProperty() {
+        return firstName;
     }
 
-    public String getCalle() {
-        return calle;
+    public String getLastName() {
+        return lastName.get();
     }
 
-    public void setCalle(String calle) {
-        this.calle = calle;
+    public void setLastName(String lastName) {
+        this.lastName.set(lastName);
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public StringProperty lastNameProperty() {
+        return lastName;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public String getStreet() {
+        return street.get();
     }
 
-    public int getCodigoPostal() {
-        return codigoPostal;
+    public void setStreet(String street) {
+        this.street.set(street);
     }
 
-    public void setCodigoPostal(int codigoPostal) {
-        this.codigoPostal = codigoPostal;
+    public StringProperty streetProperty() {
+        return street;
     }
 
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
+    public int getPostalCode() {
+        return postalCode.get();
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setPostalCode(int postalCode) {
+        this.postalCode.set(postalCode);
+    }
+
+    public IntegerProperty postalCodeProperty() {
+        return postalCode;
+    }
+
+    public String getCity() {
+        return city.get();
+    }
+
+    public void setCity(String city) {
+        this.city.set(city);
+    }
+
+    public StringProperty cityProperty() {
+        return city;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday.get();
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday.set(birthday);
+    }
+
+    public ObjectProperty<LocalDate> birthdayProperty() {
+        return birthday;
     }
 }

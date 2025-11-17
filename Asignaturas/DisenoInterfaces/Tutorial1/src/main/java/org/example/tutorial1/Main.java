@@ -3,6 +3,8 @@ package org.example.tutorial1;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +15,24 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+
+    /**
+     * The data as an observable list of Persons.
+     */
+    private ObservableList<Persona> personData = FXCollections.observableArrayList();
+
+    public Main() {
+        // Add some sample data
+        personData.add(new Persona("Hans", "Muster"));
+        personData.add(new Persona("Ruth", "Mueller"));
+        personData.add(new Persona("Heinz", "Kurz"));
+        personData.add(new Persona("Cornelia", "Meier"));
+        personData.add(new Persona("Werner", "Meyer"));
+        personData.add(new Persona("Lydia", "Kunz"));
+        personData.add(new Persona("Anna", "Best"));
+        personData.add(new Persona("Stefan", "Meier"));
+        personData.add(new Persona("Martin", "Mueller"));
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -50,11 +70,17 @@ public class Main extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("hello-view.fxml"));
+            loader.setLocation(Main.class.getResource("PersonOverview.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
+
+
+            // Give the controller access to the main app.
+            PersonOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,4 +97,14 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Returns the data as an observable list of Persons.
+     * @return
+     */
+    public ObservableList<Persona> getPersonData() {
+        return personData;
+    }
+
+
 }
