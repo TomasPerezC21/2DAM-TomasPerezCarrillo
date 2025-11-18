@@ -180,20 +180,43 @@ public class Inventario {
      * @throws ProductoNoInventarioException si el producto a vender no está en el inventario
      */
     public boolean venderProducto(int idProducto, int cantidad) throws ProductoNoInventarioException, SQLException {
-        conexion.setAutoCommit(false);
+        String sql = "select stock\n" +
+                "from productos\n" +
+                "where id=?";
 
+        PreparedStatement pst = conexion.prepareStatement(sql);
+        pst.setInt(1, idProducto);
 
-        return false;
+        ResultSet rs = pst.executeQuery();
+        rs.next();
+        if (rs.getInt(1) >= cantidad) {
+            String sql1 = "update productos set stock = stock - ? where id = ?";
+            PreparedStatement pst1 = conexion.prepareStatement(sql1);
+            pst1.setInt(1, cantidad);
+            pst1.setInt(2, idProducto);
+            pst1.executeUpdate();
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     /**
      *
      * @param idProducto a reponer
      * @param cantidad de producto a reponer
-     * @throws ProductoNoInventarioException, si el idProducto no está en el inventario
+     *
      */
-    public boolean reponerProducto(int idProducto, int cantidad) {
+    public boolean reponerProducto(int idProducto, int cantidad) throws SQLException {
+        String sql1 = "update productos set stock = stock + ? where id = ?";
+        PreparedStatement pst1 = conexion.prepareStatement(sql1);
+        pst1.setInt(1, cantidad);
+        pst1.setInt(2, idProducto);
+        pst1.executeUpdate();
+        return true;
 
-        return false;
+
+
     }
 }

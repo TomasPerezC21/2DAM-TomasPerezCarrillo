@@ -217,11 +217,15 @@ public class AppTiendaGrafica extends Application {
                         showInfo("Venta no realizada. No hay stock suficiente");
                     }
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                    showError(ex.getMessage());
                 }
             }
             else{
-                inventario.reponerProducto(p.getId(),cantidad);
+                try {
+                    inventario.reponerProducto(p.getId(),cantidad);
+                } catch (SQLException ex) {
+                    showError(ex.getMessage());
+                }
                 showInfo("Producto respuesto de forma correcta.");
             }
 
