@@ -12,11 +12,19 @@ public class Main {
 //        Semaforo semaforo = new Semaforo();
 //        timer.schedule(semaforo,0,1000);
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService ejecutor = Executors.newSingleThreadScheduledExecutor();
         Semaforo s = new Semaforo();
-        scheduler.scheduleAtFixedRate(s, 0, 1, TimeUnit.SECONDS);
+        ejecutor.scheduleAtFixedRate(s, 0, 1, TimeUnit.SECONDS);
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        ejecutor.shutdown();
 
     }
+
+
 
 }
