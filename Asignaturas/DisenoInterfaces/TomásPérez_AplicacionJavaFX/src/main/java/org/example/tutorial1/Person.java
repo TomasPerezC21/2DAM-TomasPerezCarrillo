@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 
 import java.time.LocalDate;
 
-public class Persona {
+public class Person {
 
     private final StringProperty firstName;
     private final StringProperty lastName;
@@ -16,7 +16,7 @@ public class Persona {
     /**
      * Default constructor.
      */
-    public Persona() {
+    public Person() {
         this(null, null);
     }
 
@@ -26,7 +26,7 @@ public class Persona {
      * @param firstName
      * @param lastName
      */
-    public Persona(String firstName, String lastName) {
+    public Person(String firstName, String lastName) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
 

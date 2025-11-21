@@ -3,17 +3,16 @@ package org.example.tutorial1;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 
 public class PersonOverviewController {
     @FXML
-    private TableView<Persona> personTable;
+    private TableView<Person> personTable;
     @FXML
-    private TableColumn<Persona, String> firstNameColumn;
+    private TableColumn<Person, String> firstNameColumn;
     @FXML
-    private TableColumn<Persona, String> lastNameColumn;
+    private TableColumn<Person, String> lastNameColumn;
 
     @FXML
     private Label firstNameLabel;
@@ -29,7 +28,7 @@ public class PersonOverviewController {
     private Label birthdayLabel;
 
     // Reference to the main application.
-    private Main mainApp;
+    private MainApp mainApp;
 
     /**
      * The constructor.
@@ -39,12 +38,50 @@ public class PersonOverviewController {
     }
 
     /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new person.
+     */
+    @FXML
+    private void handleNewPerson() {
+        Person tempPerson = new Person();
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+            mainApp.getPersonData().add(tempPerson);
+        }
+    }
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    @FXML
+    private void handleEditPerson() {
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
+        }
+    }
+
+    /**
      * Fills all text fields to show details about the person.
      * If the specified person is null, all text fields are cleared.
      *
      * @param person the person or null
      */
-    private void showPersonDetails(Persona person) {
+    private void showPersonDetails(Person person) {
         if (person != null) {
             // Fill the labels with info from the person object.
             firstNameLabel.setText(person.getFirstName());
@@ -106,12 +143,13 @@ public class PersonOverviewController {
         }
     }
 
+
     /**
      * Is called by the main application to give a reference back to itself.
      *
      * @param mainApp
      */
-    public void setMainApp(Main mainApp) {
+    public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
