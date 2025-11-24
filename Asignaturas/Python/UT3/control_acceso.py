@@ -11,3 +11,24 @@ print("--- SISTEMA DE LOGIN ---")
 usuario_input = input("Introduce tu usuario: ")
 contrasena_input = input("Introduce tu contraseña: ")
 
+# Verificamos si coinciden con los guardados
+if usuario_input == usuario_guardado and contrasena_input == contrasena_guardada:
+    print("Credenciales correctas. Accediendo...")
+    sesion_activa = True
+    time.sleep(1) # Pequeña pausa estética
+else:
+    print("Error: Usuario o contraseña incorrectos.")
+
+# --- 3. MENÚ PRINCIPAL (Bucle While) ---
+# Solo entramos aquí si la sesión está activa (login correcto)
+while sesion_activa:
+    print("\n" + "="*30)
+    print("       MENÚ DE USUARIO")
+    print("="*30)
+    print("1. Ver perfil")
+    print("2. Cambiar contraseña")
+    print("3. Salir")
+    
+    opcion = input("Elige una opción (1-3): ")
+
+   
