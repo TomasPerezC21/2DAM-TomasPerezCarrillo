@@ -31,4 +31,26 @@ while sesion_activa:
     
     opcion = input("Elige una opción (1-3): ")
 
-   
+    # --- CONTROL DE FLUJO (Condicionales) ---
+    if opcion == "1":
+        # Opción: Ver Perfil
+        print(f"\n[PERFIL] Usuario actual: {usuario_guardado}")
+        print("Estado: Conectado")
+        
+    elif opcion == "2":
+        # Opción: Cambiar Contraseña
+        nueva_pass = input("\nIntroduce la nueva contraseña: ")
+        # Actualizamos la variable
+        contrasena_guardada = nueva_pass 
+        print("¡Contraseña actualizada con éxito!")
+        print(f"(Tu nueva contraseña es: {contrasena_guardada})")
+
+    elif opcion == "3":
+        # Opción: Salir
+        print("\nCerrando sesión... ¡Hasta luego!")
+        sesion_activa = False # Esto rompe el bucle while
+        # También podrías usar 'break' aquí
+
+    else:
+        # Opción no válida
+        print("Opción desconocida. Por favor, intenta de nuevo.")
