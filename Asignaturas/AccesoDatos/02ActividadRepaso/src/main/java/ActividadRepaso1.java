@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ActividadRepaso {
+public class ActividadRepaso1 {
 
 
     private static Connection conexion;
