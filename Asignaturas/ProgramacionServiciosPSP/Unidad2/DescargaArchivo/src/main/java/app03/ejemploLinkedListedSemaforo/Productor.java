@@ -3,6 +3,7 @@ package app03.ejemploLinkedListedSemaforo;
 import app02.Semaforo;
 
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class Productor implements Runnable{
@@ -19,16 +20,18 @@ public class Productor implements Runnable{
 
     @Override
     public void run() {
-        for (int i = 0; i < 5; i++) {
+        Random r = new Random();
 
+        for (int i = 0; i < 20; i++) {
             synchronized (lista) {
-                lista.add(i);
-                System.out.println("El productor " + nombre + " ha producido el número: " + i);
+                int num = r.nextInt(1,100);
+                lista.add(num);
+                System.out.println("El productor " + nombre + " ha producido el número: " + num);
             }
             semaforo.release();
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

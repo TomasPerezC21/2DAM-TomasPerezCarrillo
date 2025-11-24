@@ -1,6 +1,7 @@
 package app03.ejemploLinkedListedSemaforo;
 
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class Consumidor implements Runnable {
@@ -17,19 +18,25 @@ public class Consumidor implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < lista.size(); i++) {
+        Random r  = new Random();
+
+        for (int i = 0; i < 5; i++) {
             try {
                 semaforo.acquire();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
             synchronized (lista) {
                 int numero = lista.removeFirst();
-                System.out.println("El consumidor " + nombre + " ha consumido el número: "+ i);
+                System.out.println("El consumidor " + nombre + " ha consumido el número: "+ numero);
             }
-            semaforo.release();
+            //semaforo.release();
+
+            int tiempo = r.nextInt(300, 600);
+
             try{
-                Thread.sleep(1000);
+                Thread.sleep(tiempo);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
