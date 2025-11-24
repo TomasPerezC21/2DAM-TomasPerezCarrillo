@@ -49,7 +49,6 @@ while sesion_activa:
         # Opción: Salir
         print("\nCerrando sesión... ¡Hasta luego!")
         sesion_activa = False # Esto rompe el bucle while
-        # También podrías usar 'break' aquí
 
     else:
         # Opción no válida
