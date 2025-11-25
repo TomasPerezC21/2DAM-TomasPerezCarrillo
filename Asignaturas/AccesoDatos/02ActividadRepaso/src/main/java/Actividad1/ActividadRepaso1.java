@@ -1,15 +1,18 @@
+package Actividad1;
+
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ActividadRepaso2 {
+public class ActividadRepaso1 {
+
 
     private static Connection conexion;
     private static final String url ="jdbc:mysql://localhost:3306/ventas";
     private static final String usuario = "root";
     private static final String password = "alumnoDAM";
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
 
         try {
             conexion = DriverManager.getConnection(url, usuario, password);
@@ -20,7 +23,7 @@ public class ActividadRepaso2 {
 
         ArrayList<String> ejercicio1 = new ArrayList<>();
         try {
-            ejercicio1 = listarPedidos(2017,conexion);
+            ejercicio1 = listarPedidos("Adela Salas Díaz",conexion);
         } catch (SQLException e) {
             System.err.println(e.getMessage());;
         }
@@ -33,21 +36,27 @@ public class ActividadRepaso2 {
             }
         }
 
-
     }
 
-    public static ArrayList<String> listarPedidos(int anio, Connection conex) throws SQLException {
+
+    public static ArrayList<String> listarPedidos(String nombreCliente, Connection conex) throws SQLException {
 
         ArrayList<String> lista = new ArrayList<>();
 
+        String[] nombres = nombreCliente.split(" ");
 
-        String sentenciaSQL = "select p.id, fecha, concat(nombre, \" \", apellido1, \" \", apellido2) nombreCompleto, total\n" +
-                "from pedido p, comercial co\n" +
-                "where p.id_comercial  = co.id \n" +
-                "and year(fecha) = ? ";
+        String sentenciaSQL = "select p.id, p.total, p.fecha, p.id_cliente, p.id_comercial \n" +
+                "from pedido p, cliente cl, comercial co \n" +
+                "where p.id_cliente = cl.id " +
+                "and p.id_comercial = co.id " +
+                "and cl.nombre = ? " +
+                "and cl.apellido1 = ? " +
+                "and cl.apellido2 = ?";
 
         PreparedStatement pst = conex.prepareStatement(sentenciaSQL);
-        pst.setInt(1, anio);
+        pst.setString(1, nombres[0]);
+        pst.setString(2, nombres[1]);
+        pst.setString(3, nombres[2]);
         ResultSet rs = pst.executeQuery();
 
         while (rs.next()) {
@@ -56,15 +65,15 @@ public class ActividadRepaso2 {
             double total = rs.getDouble("total");
 
             String fecha = rs.getString("fecha");
-            String nombreCompleto = rs.getString("nombreCompleto");
 
-            String resultado = "ID del Pedido: " + idPedido + ". Total: " + total +
-                    ". Fecha: " + fecha + ". Nombre Completo: " + nombreCompleto;
+            String resultado = "Pedido Nº: " + idPedido + ". Total: " + total +
+                    ". Fecha: " + fecha;
 
             lista.add(resultado);
         }
 
         return lista;
     }
+
 
 }
