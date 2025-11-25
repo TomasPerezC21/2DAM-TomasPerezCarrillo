@@ -4,9 +4,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import javax.xml.transform.ErrorListener
 
 class AdaptadorNotas(): RecyclerView.Adapter<ViewHolderNota>() {
     private var notas: MutableList<Nota> = mutableListOf()
+
+
+
+    private var onDeleteNota:((Nota)->Unit)?=null
+
+    fun setOnDeleteNotaListener(listener: (Nota)->Unit){
+        this.onDeleteNota = listener
+    }
+
+    //private lateinit var listener: AdaptadorCallback
+
+//    interface AdaptadorCallback{
+//        fun onDeleteNota(nota: Nota)
+//    }
+
+//    fun setAdaptadorCallback(listener: AdaptadorCallback){
+//        this.listener=listener
+//    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,8 +44,10 @@ class AdaptadorNotas(): RecyclerView.Adapter<ViewHolderNota>() {
         holder.menuNota.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.action_borrar -> {
-                    notas.remove(nota)
-                    notifyDataSetChanged()
+//                    notas.remove(nota)
+//                    notifyDataSetChanged()
+                  //  listener.onDeleteNota(nota)
+                    onDeleteNota?.invoke(nota)
                     true
                 }
                 else -> {
@@ -40,12 +62,20 @@ class AdaptadorNotas(): RecyclerView.Adapter<ViewHolderNota>() {
     }
     fun addNota(nota:Nota){
         notas.add(nota)
-        notifyDataSetChanged()
+        //notifyDataSetChanged()
+        notifyItemInserted(notas.size-1)
     }
 
     fun setNotas(notas: List<Nota>) {
         this.notas = notas as MutableList<Nota>
         notifyDataSetChanged()
+    }
+
+    fun deleteNota(nota: Nota) {
+        val pos = notas.indexOf(nota)
+        notas.removeAt(pos)
+        notifyItemRemoved(pos)
+
     }
 
 }

@@ -55,10 +55,7 @@ class MainActivity : AppCompatActivity() {
                 adaptadorRecyclerViewNotas.setNotas(notas)
                 
             }
-
         }
-
-
 
         startAddNotaForResult = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -69,14 +66,45 @@ class MainActivity : AppCompatActivity() {
                 if(data!=null){
                     val tituloNota = data.extras?.getString("titulo")?:""
                     val descNota= data.extras?.getString("descripcion")?:""
-                    adaptadorRecyclerViewNotas.addNota(Nota(tituloNota, descNota))
+                    //adaptadorRecyclerViewNotas.addNota(Nota(tituloNota, descNota))
+
+                    lifecycleScope.launch(Dispatchers.IO){
+                        val database = NotaBBDD.getInstance(applicationContext)
+                        var pkNota = database.notaDAO().insertNote(Nota(tituloNota, descNota))
+                        withContext(Dispatchers.Main){
+                            adaptadorRecyclerViewNotas.addNota(Nota(tituloNota, descNota, pkNota.toInt()))
+                        }
+                    }
                 }
             }
         }
 
+
         addNotaButton.setOnClickListener {
             val intent= Intent (this, AddNotaActivity::class.java)
             startAddNotaForResult.launch(intent)
+        }
+
+//        adaptadorRecyclerViewNotas.setAdaptadorCallback(object: AdaptadorNotas.AdaptadorCallback{
+//            override fun onDeleteNota(nota: Nota) {
+//                val database = NotaBBDD.getInstance(applicationContext)
+//                lifecycleScope.launch(Dispatchers.IO){
+//                    database.notaDAO().delete(nota)
+//                    withContext(Dispatchers.Main){
+//                        adaptadorRecyclerViewNotas.deleteNota(nota)
+//                    }
+//                }
+//            }
+//        })
+
+        adaptadorRecyclerViewNotas.setOnDeleteNotaListener { nota ->
+            val database = NotaBBDD.getInstance(applicationContext)
+            lifecycleScope.launch(Dispatchers.IO){
+                database.notaDAO().delete(nota)
+                withContext(Dispatchers.Main){
+                    adaptadorRecyclerViewNotas.deleteNota(nota)
+                }
+            }
         }
 
     }
