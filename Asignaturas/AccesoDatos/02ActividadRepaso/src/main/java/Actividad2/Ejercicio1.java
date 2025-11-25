@@ -8,7 +8,7 @@ public class Ejercicio1 {
     private static Connection conexion;
     private static final String url ="jdbc:mysql://localhost:3306/libros";
     private static final String usuario = "root";
-    private static final String password = "alumnoDAM";
+    private static final String password = "ArdienteS21";
 
     public static void main(String[] args) {
 

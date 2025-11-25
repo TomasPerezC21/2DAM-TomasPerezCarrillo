@@ -6,10 +6,10 @@ public class Libro {
     private String nombre_libro;
     private int numero_paginas;
     private String tema;
-    private String autor;
-    private String editorial;
+    private int autor;
+    private int editorial;
 
-    public Libro(int cod_libro, String nombre_libro, int numero_paginas, String tema, String autor, String editorial) {
+    public Libro(int cod_libro, String nombre_libro, int numero_paginas, String tema, int autor, int editorial) {
         this.cod_libro = cod_libro;
         this.nombre_libro = nombre_libro;
         this.numero_paginas = numero_paginas;
@@ -34,11 +34,11 @@ public class Libro {
         return tema;
     }
 
-    public String getAutor() {
+    public int getAutor() {
         return autor;
     }
 
-    public String getEditorial() {
+    public int getEditorial() {
         return editorial;
     }
 
@@ -54,11 +54,11 @@ public class Libro {
         this.tema = tema;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(int autor) {
         this.autor = autor;
     }
 
-    public void setEditorial(String editorial) {
+    public void setEditorial(int editorial) {
         this.editorial = editorial;
     }
 }

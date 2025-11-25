@@ -7,13 +7,13 @@ public class Ejercicio2 {
     private static Connection conexion;
     private static final String url ="jdbc:mysql://localhost:3306/libros";
     private static final String usuario = "root";
-    private static final String password = "alumnoDAM";
+    private static final String password = "ArdienteS21";
 
     public static void main(String[] args) {
 
         Libro libro1 = new Libro(56, "FP DAM",
                 420, "Informática",
-                "Tomás Pérez Carrillo", "AprendeDAM");
+                1, 1);
 
         try {
             conexion = DriverManager.getConnection(url,usuario,password);
@@ -22,8 +22,14 @@ public class Ejercicio2 {
             System.err.println(e.getMessage());
         }
 
+
         try {
             boolean insertado = insertarLibro(conexion, libro1);
+            if (insertado) {
+                System.out.println("Libro insertado");
+            }else{
+                System.out.println("Error al insertar el libro.");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -36,6 +42,17 @@ public class Ejercicio2 {
         boolean condicion2 = comprobarAutor(conex,libro);
         boolean condicion3 = comprobarEditorial(conex,libro);
 
+        if (!condicion1) {
+            System.out.println("Error: El código del libro ya existe.");
+        }
+        if (!condicion2) {
+            System.out.println("Error: El autor no existe en la tabla de escritores.");
+        }
+        if (!condicion3) {
+            System.out.println("Error: La editorial no existe en la tabla de editoriales.");
+        }
+
+
         if(condicion1 && condicion2 && condicion3){
 
             String sentenciaSQL = "INSERT INTO libros (cod_libro, nombre_libro, numero_paginas, tema, autor, editorial)" +
@@ -47,20 +64,16 @@ public class Ejercicio2 {
             pst.setString(2, libro.getNombre_libro());
             pst.setInt(3, libro.getNumero_paginas());
             pst.setString(4, libro.getTema());
-            pst.setString(5, libro.getAutor());
-            pst.setString(6, libro.getEditorial());
+            pst.setInt(5, libro.getAutor());
+            pst.setInt(6, libro.getEditorial());
 
-            int filasAfectadas = pst.executeUpdate();
+            pst.executeUpdate();
 
-            if (filasAfectadas > 0) {
-                System.out.println("Libro insertado.");
-            }
             return true;
         }else {
-            System.out.println("Error al insertar libro.");
+
             return false;
         }
-
 
     }
 
@@ -83,13 +96,13 @@ public class Ejercicio2 {
     }
 
     private static boolean comprobarAutor(Connection conex, Libro libro) throws SQLException {
-        String nombreAutorComprobar = libro.getAutor();
+        int nombreAutorComprobar = libro.getAutor();
 
-        String sentenciaSQL = "select * from libros where autor = ?";
+        String sentenciaSQL = "SELECT * FROM escritores WHERE cod_escritor = ?";
 
         PreparedStatement pst = conex.prepareStatement(sentenciaSQL);
 
-        pst.setString(1, nombreAutorComprobar);
+        pst.setInt(1, nombreAutorComprobar);
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
             return true;
@@ -99,13 +112,13 @@ public class Ejercicio2 {
 
     private static boolean comprobarEditorial(Connection conex, Libro libro) throws SQLException {
 
-        String nombreEditorialComprobar = libro.getEditorial();
+        int codEditorialComprobar = libro.getEditorial();
 
-        String sentenciaSQL = "select * from libros where editorial = ?";
+        String sentenciaSQL = "SELECT * FROM editoriales WHERE cod_EDITORIAL = ?";
 
         PreparedStatement pst = conex.prepareStatement(sentenciaSQL);
 
-        pst.setString(1, nombreEditorialComprobar);
+        pst.setInt(1, codEditorialComprobar);
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
             return true;
