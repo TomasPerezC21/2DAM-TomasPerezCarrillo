@@ -8,7 +8,11 @@ import java.util.Random;
 
 public class AleatoriosFichero implements Runnable {
 
-    private String nombreFichero = "src/main/java/Ejercicio1/numeros.txt";
+    private String nombreFichero;
+
+    public AleatoriosFichero(String nombreFichero) {
+        this.nombreFichero = nombreFichero;
+    }
 
     @Override
     public void run() {
@@ -16,12 +20,19 @@ public class AleatoriosFichero implements Runnable {
 
         File file = new File(nombreFichero);
 
-        for (int i = 1; i < 5; i++) {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(file, false));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 1; i <= 5; i++) {
             int num = aleatorio.nextInt(1, 21);
 
             try {
-                BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
-                bw.write(num);
+
+                bw.write(num+"");
                 bw.newLine();
 
                 try {
@@ -33,9 +44,12 @@ public class AleatoriosFichero implements Runnable {
                 throw new RuntimeException(e);
             }
 
-
         }
-
+        try {
+            bw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
