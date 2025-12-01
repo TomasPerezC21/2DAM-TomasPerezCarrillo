@@ -1,4 +1,4 @@
-package Ejercicio1;
+package ejemploJoin;
 
 import java.io.*;
 
