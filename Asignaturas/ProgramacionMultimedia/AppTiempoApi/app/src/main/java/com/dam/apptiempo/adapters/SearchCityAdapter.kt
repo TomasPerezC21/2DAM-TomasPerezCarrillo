@@ -1,14 +1,26 @@
 package com.dam.apptiempo.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dam.apptiempo.City
 import com.dam.apptiempo.R
+import okhttp3.EventListener
 
 class SearchCityAdapter: RecyclerView.Adapter<CityViewHolder>() {
 
     private var arrayCities = mutableListOf<City>()
+
+    private lateinit var listener: CityAdapterCallback
+
+    interface CityAdapterCallback{
+        fun citySelected(city: City)
+    }
+
+    fun setOnClickListener(codRecibido: CityAdapterCallback){
+        this.listener=codRecibido
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,6 +42,16 @@ class SearchCityAdapter: RecyclerView.Adapter<CityViewHolder>() {
         val city = arrayCities[position]
         holder.txtName.text=city.name
 
+        holder.itemView.setOnClickListener {
+            listener.citySelected(city)
+            Log.d("searchcity", city.toString())
+        }
+    }
+
+    fun setCities(result: List<City>){
+        //Log.d("searchcity",)
+        arrayCities=result.toMutableList()
+        notifyDataSetChanged()
     }
 
 
