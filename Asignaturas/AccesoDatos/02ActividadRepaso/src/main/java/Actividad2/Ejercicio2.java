@@ -11,7 +11,7 @@ public class Ejercicio2 {
 
     public static void main(String[] args) {
 
-        Libro libro1 = new Libro(56, "FP DAM",
+        Libro libro1 = new Libro(57, "FP DAM",
                 420, "Informática",
                 1, 1);
 
@@ -71,7 +71,6 @@ public class Ejercicio2 {
 
             return true;
         }else {
-
             return false;
         }
 

@@ -8,7 +8,7 @@ public class Ejercicio1 {
     private static Connection conexion;
     private static final String url ="jdbc:mysql://localhost:3306/libros";
     private static final String usuario = "root";
-    private static final String password = "ArdienteS21";
+    private static final String password = "alumnoDAM";
 
     public static void main(String[] args) {
 
@@ -28,7 +28,7 @@ public class Ejercicio1 {
         ArrayList<String> resultado1;
 
         try {
-             resultado1= listarTotalLibrosEditorial("SA", conexion);
+             resultado1 = listarTotalLibrosEditorial("SA", conexion);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
