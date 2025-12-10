@@ -1,0 +1,7 @@
+--- RESULTADOS DEL SORTEO ---
+Fernando --> regala a --> Beatriz
+Beatriz --> regala a --> Elena
+Elena --> regala a --> Carlos
+Carlos --> regala a --> Ana
+Ana --> regala a --> David
+David --> regala a --> Fernando

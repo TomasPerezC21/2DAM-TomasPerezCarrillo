@@ -1,0 +1,26 @@
+[
+    {
+        "nombre": "Raqueta tenis",
+        "precio": 89.0
+    },
+    {
+        "nombre": "Ratón",
+        "precio": 45.0
+    },
+    {
+        "nombre": "TV",
+        "precio": 250.0
+    },
+    {
+        "nombre": "PS5",
+        "precio": 499.0
+    },
+    {
+        "nombre": "Monitor Gaming",
+        "precio": 412.0
+    },
+    {
+        "nombre": "PC",
+        "precio": 600.0
+    }
+]
